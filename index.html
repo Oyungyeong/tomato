@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>🍅</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+
+	<style type="text/css">
+		body,h1,h2,h3,h4,p,ul{margin: 0; padding: 0;}
+		.image-container { width: 100vw; height: 100vh; overflow: hidden;}
+
+		.image-container img { width: 100%; height: 100%; object-fit: cover;}
+
+	/* 커서 */
+    body {cursor: url('img/hand.png'), auto;}
+		.do-hyeon-regular {
+ 			font-family: "Do Hyeon", sans-serif;
+ 			font-weight: 400;
+			font-style: normal;
+		}
+
+	</style>
+</head>
+<body>
+
+  <div style="position: static;" class="image-container" id="farm-image">
+    <img src="./img/farm.png">
+  </div>
+
+  <button id="myButton" class="do-hyeon-regular" style="position:absolute; height: 200px; width: 350px; top: 40%; left: 40%; font-size: 2rem; border-top-radius: 20px; border-left-radius: 20px; border-right-radius: 20px; border-bottom-radius: 20px; background:white; border-width: 5px; border-color: saddlebrown; padding: 10px; color: saddlebrown; Z-index:2;" onclick="checkAndCreateNewButton()">토마토를 수확해 보자!</button>
+
+  <div id="tomato1" style="position: absolute;">
+    <img src="./img/tomato.png" style="position: fixed; top: 500px;" data-clickable="false" onclick="this.style.display = 'none'; checkAndCreateNewButton()">
+  </div>
+
+  <div id="tomato2" style="position: absolute;">
+    <img src="./img/tomato.png" style="position: fixed; top: 400px; left: 360px;" data-clickable="false" onclick="this.style.display = 'none'; checkAndCreateNewButton()">
+  </div>
+
+  <div id="tomato3" style="position: absolute;">
+    <img src="./img/tomato.png" style="position: fixed; top: 100px; left: 650px; Z-index:1;" data-clickable="false" onclick="this.style.display = 'none'; checkAndCreateNewButton()">
+  </div>
+
+  <div id="tomato4" style="position: absolute;">
+    <img src="./img/tomato.png" style="position: fixed; top: 340px; left: 800px;" data-clickable="false" onclick="this.style.display = 'none'; checkAndCreateNewButton()">
+  </div>
+
+  <div id="tomato5" style="position: absolute;">
+    <img src="./img/tomato.png" style="position: fixed; top: 500px; left: 900px;" data-clickable="false" onclick="this.style.display = 'none'; checkAndCreateNewButton()">
+  </div>
+
+  <div id="tomato6" style="position: absolute;">
+    <img src="./img/tomato.png" style="position: fixed; top: 420px; left: 1150px;" data-clickable="false" onclick="this.style.display = 'none'; checkAndCreateNewButton()">
+  </div>
+
+  <div id="new-element"></div>  
+  <div id="select" style="background: #FAF574; position: fixed; z-index: 3; display: none;">
+    </div>
+
+  <script>
+
+    const myButton = document.getElementById('myButton');
+    myButton.addEventListener('click', () => {
+      myButton.style.display = 'none';
+    });
+
+    let clickedTomatoes = [];
+const totalClicks = 7; // Assuming 6 tomatoes (excluding the button)
+
+function checkAndCreateNewButton(tomatoId) {
+  clickedTomatoes.push(tomatoId);
+
+  if (clickedTomatoes.length === totalClicks) {
+    // All tomatoes clicked, create new image
+    const newImage = document.createElement('img');
+    newImage.src = './img/all.png';
+    newImage.style.width = '800px';
+    newImage.style.height = '530px';
+    newImage.style.position = 'absolute';
+    newImage.style.top = '50%';
+    newImage.style.left = '50%';
+    newImage.style.transform = 'translate(-50%, -50%)';
+    document.body.appendChild(newImage);
+
+     // Add event listener to the new image
+        newImage.addEventListener('click', () => {
+          document.getElementById('new-element').style.display = 'none'; // 기존 이미지 숨기기
+          document.getElementById('select').style.display = 'block'; // select 화면 보이기
+        });
+  }
+}
+
+// Add event listeners to each tomato with their ID
+const tomatoImages = document.querySelectorAll('.tomato');
+tomatoImages.forEach(tomato => {
+  tomato.addEventListener('click', () => {
+    checkAndCreateNewButton(tomato.id);
+  });
+});
+
+     // Add event listener to the new image
+        newImage.addEventListener('click', () => {
+          document.getElementById('select').style.display = 'block'; // Show the select screen
+        });
+
+  </script>
+
+</body>
+</html>
